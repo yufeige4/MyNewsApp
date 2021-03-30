@@ -2,6 +2,8 @@ package com.laioffer.tinnews.network;
 
 import android.content.Context;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -16,9 +18,10 @@ public class RetrofitClient {
     private static final String API_KEY = "4cbc006c8a7940c6b0c76147116304ea";
     private static final String BASE_URL = "https://newsapi.org/v2/";
 
-    public static Retrofit newInstance(Context context) {
+    public static Retrofit newInstance() {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new HeaderInterceptor())
+                .addNetworkInterceptor(new StethoInterceptor())
                 .build();
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
